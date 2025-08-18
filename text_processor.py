@@ -170,14 +170,10 @@ class TextProcessor:
         return bool(re.fullmatch(r'[a-zA-Z0-9]+', text))
 
     @staticmethod
-    def is_substring_surrounded_by_non_custom(text: str, substring: str, custom_chars: str = '') -> bool:
+    def is_substring_surrounded_by_non_custom(text: str, start, end, custom_chars: str = '') -> bool:
         """
-        给定一个字符串和字符串的子串，检测这个子串的左右两边不存在字母数字和自定义的字符
+        给定一个字符串和字符串的子串的start(index), end(index)，检测这个子串的左右两边不存在字母数字和自定义的字符
         """
-        if substring not in text:
-            return False
-        start = text.find(substring)
-        end = start + len(substring)
         # 构建检测字符集
         check_chars = r'[a-zA-Z0-9' + re.escape(custom_chars) + r']'
         left_ok = (start == 0) or (not re.match(check_chars, text[start-1]))
